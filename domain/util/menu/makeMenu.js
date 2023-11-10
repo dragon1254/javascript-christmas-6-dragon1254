@@ -9,10 +9,10 @@ class makeMenu{
 
 #inputMenuTitle = [];
 
-
     constructor(menu,menuList){
         this.#menu = menu;
         this.#menuList = menuList;
+        this.list();
     }
 
     // 입력받은 메뉴를 ,로 잘라서 [시저샐러드-2,제로콜라-1]의 식의 형태로 만들고(inputMenuArray)
@@ -27,6 +27,7 @@ class makeMenu{
         inputMenuArray.forEach(element => {
             let temproraryMenuList = element.split('-');
             this.equalWithMenuList(temproraryMenuList);
+            this.formOfMenu(temproraryMenuList);
         });
         this.duplication(inputMenuArray);
         return this.#menuList
@@ -35,11 +36,18 @@ class makeMenu{
     equalWithMenuList(temproraryMenuList) {
         for(let i =0; i< NUMBERS.ALL_MENU; i++){
             if(temproraryMenuList[0] === this.#inputMenuTitle[i]) {
-                this.#menuList[this.#inputMenuTitle[i]] = temproraryMenuList[1]
+                this.#menuList[this.#inputMenuTitle[i]] = Number(temproraryMenuList[1]);
             }
         }
     }
 
+
+    // 이 두 부분은 ValidateMenu 부분이니까 옮길 수 없을 까 확인해야 함
+    formOfMenu(temproraryMenuList){
+        if(!Object.keys(this.#menuList).includes(temproraryMenuList[0])){
+            throw new Error(ERROR.MENU);
+        }
+    }
 
     duplication(inputMenuArray){
         const setMenu = new Set(inputMenuArray);

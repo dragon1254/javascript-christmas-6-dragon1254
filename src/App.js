@@ -1,5 +1,15 @@
+import controller from "../domain/controller/controller";
+
 class App {
-  async run() {}
+#controller
+
+  constructor() {
+    this.#controller = new controller();
+  }
+
+  async run() {
+    this.#controller.start();
+  }
 }
 
 export default App;
