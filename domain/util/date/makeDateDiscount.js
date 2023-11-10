@@ -1,4 +1,4 @@
-class makeDate{
+class makeDateDiscount{
 #date
 
     constructor(date) {
@@ -7,6 +7,8 @@ class makeDate{
 
     
 
+    
+
 }
 
-export default makeDate;
+export default makeDateDiscount;

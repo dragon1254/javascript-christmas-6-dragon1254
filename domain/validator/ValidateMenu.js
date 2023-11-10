@@ -1,9 +1,15 @@
 
-class validateMenu{
-#menu
+class checkMenu{
+#menuList
 
-    
+    constructor(menu) {
+        this.#menuList = menu
+    }
+
+    isCorrctMenu(){
+
+    }
 
 }
 
-export default validateMenu
+export default checkMenu
