@@ -56,7 +56,6 @@ class controller {
             '주말 할인': 0,
             '특별 할인': 0
         }
-        this.#inputView = new InputView();
     }
 
     async start() {
@@ -80,6 +79,7 @@ class controller {
     // 날짜를 받아와서 체크하고 에러가 뜨면 다시 받는다
     // ㄴ 체크 할때 문자인지 확인, 1~31 범위안인지 확인
     async getDate() {
+        this.#inputView = new InputView()
         try{
             this.#date = await this.#inputView.readDate();
             const correctDate = new checkDate(this.#date);
@@ -93,6 +93,7 @@ class controller {
     // 그 리스트를 체크쪽에 보내서 체크
 
     async getMenu() {
+        this.#inputView = new InputView()
         try{
             const menu = await this.#inputView.readMenu();
             this.#menulist = new makeMenu(menu,this.#menulist);
