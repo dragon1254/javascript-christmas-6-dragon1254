@@ -15,14 +15,14 @@ class makeDateDiscount{
 
     onDDayDiscount(){
         let discount = this.#date * NUMBERS.DAILY_DISCOUNT + NUMBERS.BASIC_DISCOUNT;
-        this.#haveDiscount[dday] = discount
+        this.#haveDiscount['크리스마스 디데이 할인'] = discount
         this.commonDiscount()
         return this.#haveDiscount
     }
 
     commonDiscount(){
         if(this.#date === 3 || 10 || 17 || 24 || 25 || 31){
-            this.#haveDiscount[special] = 1000;
+            this.#haveDiscount['특별 할인'] = 1000;
         }
         if(this.#date === 1 || 2 || 8 || 9 || 15 || 16 || 22 || 23 || 29 || 30){
             this.weekendDiscount();
@@ -39,7 +39,7 @@ class makeDateDiscount{
         mainMenu.forEach(element => {
             mainSum = mainSum + element * NUMBERS.COMMON_DISCOUNT;
         });
-        this.#haveDiscount[weekends] = mainSum;
+        this.#haveDiscount['주말 할인'] = mainSum;
     }
 
     weekdaysDiscount(){
@@ -48,7 +48,7 @@ class makeDateDiscount{
         dessertMenu.forEach(element => {
             dessertSum = dessertSum + element * NUMBERS.COMMON_DISCOUNT;
         });
-        this.#haveDiscount[weekdays] = dessertSum;
+        this.#haveDiscount['평일 할인'] = dessertSum;
 
     }
     

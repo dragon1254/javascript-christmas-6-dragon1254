@@ -6,6 +6,8 @@ import makeMenu from "../util/menu/makeMenu";
 import NUMBERS from "../../src/constant/numbers";
 import makeDateDiscount from "../util/date/makeDateDiscount";
 import checkBenefit from "../util/benefit/textBenefit";
+import checkBadge from "../model/badge";
+import OutputView from "../view/OutputView";
 
 
 class controller {
@@ -27,7 +29,9 @@ class controller {
 
 #getBenefit
 
-#totalBenefitPrice
+#totalDiscountPrice
+
+#printAll
 
     constructor(){
         this.#menulist = {
@@ -47,10 +51,10 @@ class controller {
         this.#menuPriceArray = [6000, 5500, 8000, 55000, 54000, 35000, 25000, 15000, 5000, 3000, 60000, 25000];
         this.#haveDiscount = {
             yes: true,
-            weekdays: 0,
-            weekends: 0,
-            special: 0,
-            dday: 0
+            '크리스마스 디데이 할인': 0,
+            '평일 할인': 0,
+            '주말 할인': 0,
+            '특별 할인': 0
         }
         this.#inputView = new InputView();
     }
@@ -68,6 +72,8 @@ class controller {
     calculator() {
         this.#haveDiscount = this.discount()
         this.#present = this.present();
+        this.getBenefits();
+        this.benefitPrices();
     }
 
 
@@ -131,10 +137,10 @@ class controller {
     }
 
     present() {
-        if(this.#beforeDiscount >= 120000){
+        if(this.#beforeDiscount >= NUMBERS.SHAMPAIN_STANDARD){
             return true;
         }
-        if(this.#haveDiscount < 120000){
+        if(this.#haveDiscount < NUMBERS.SHAMPAIN_STANDARD){
             return false;
         }
     }
@@ -148,7 +154,7 @@ class controller {
             this.#getBenefit = '없음'
         }
     }
-// 이 계산쪽을 다른곳으로 빼는것도 생각
+// 이 계산쪽을 다른곳으로 빼는것도 생각. 진짜 혜택 금액은 #this.present가 true일때 샴페인 25000원 더해준 값
     benefitPrices() {
         const arrayDiscount = Object.values(this.#haveDiscount);
         let discountPrice = 0;
@@ -157,17 +163,42 @@ class controller {
                 discountPrice = discountPrice + arrayDiscount[i];
             }
         }
-        this.#totalBenefitPrice = discountPrice;
+        this.#totalDiscountPrice = discountPrice;
     }
 
+// this.#beforeDiscount - this.#totalDiscountPrice 
+// 이것뿐이라 따로 정해줄 필요없을 수 있음. 출력에서 바로 계산만 해줘도 될 수 있으니 고민하기
     afterDiscount() {
-
+        const netPrice = this.#beforeDiscount - this.#totalDiscountPrice;
+        return netPrice;
     }
+
+    // #present가 true일때는 샴페인 받으니 무조건 산타. 
+    // #present가 false일때 #totalDiscountPrice3가 20000 넘으면 산타, 10000~20000이면 트리, 5000~10000 이면 별, 0~5000이면 없음
+    // if문 2개 써서 #present 하고 false일 때는 따로 클래스(든 메소드든) 빼줌(depth관리)
 
     badge() {
-
+        if(this.#present === true){
+            return '산타';
+        }
+        if(this.#present === false){
+            const badgeLevel = new checkBadge(this.#totalDiscountPrice);
+        }
     }
 
+    printAll() {
+        const print = new OutputView();
+        const printMenu = print.printMenu(this.#menulist);
+        const printBefore = print.printBefore(this.#beforeDiscount);
+        if(this.#haveDiscount[yes] === true){
+            const printBenefit = print.printYesBenefit(this.#present, this.#haveDiscount);
+            const totalBenefit = print.printTotalBenefit();
+        }
+        if(this.#haveDiscount[yes] === false){
+            const printNotBenefit = print.printNoBenefit();
+        }
+        const getBadge = print.printBadge(this.#totalDiscountPrice);
+    }
 }
 
 export default controller;
