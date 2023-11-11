@@ -5,7 +5,7 @@ const NUMBERS = {
     ALL_MENU : 12,
     MAX_MENU : 20,
     DAILY_DISCOUNT : 100,
-    BASIC_DISCOUNT : 1000,
+    BASIC_DISCOUNT : 900,
     COMMON_DISCOUNT : 2023
     
 }

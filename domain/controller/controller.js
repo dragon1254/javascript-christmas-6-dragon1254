@@ -5,6 +5,7 @@ import checkMenu from "../validator/ValidateMenu";
 import makeMenu from "../util/menu/makeMenu";
 import NUMBERS from "../../src/constant/numbers";
 import makeDateDiscount from "../util/date/makeDateDiscount";
+import checkBenefit from "../util/benefit/textBenefit";
 
 
 class controller {
@@ -22,6 +23,11 @@ class controller {
 
 #haveDiscount
 
+#present
+
+#getBenefit
+
+#totalBenefitPrice
 
     constructor(){
         this.#menulist = {
@@ -51,6 +57,7 @@ class controller {
 
     async start() {
         await this.getDateAndMenu();
+        this.calculator();
     }
 
     async getDateAndMenu() {
@@ -60,6 +67,7 @@ class controller {
 
     calculator() {
         this.#haveDiscount = this.discount()
+        this.#present = this.present();
     }
 
 
@@ -123,15 +131,33 @@ class controller {
     }
 
     present() {
-
+        if(this.#beforeDiscount >= 120000){
+            return true;
+        }
+        if(this.#haveDiscount < 120000){
+            return false;
+        }
     }
 
     getBenefits() {
-
+        const arrayDiscount = Object.values(this.#haveDiscount);
+        if(arrayDiscount[0] === true){
+            this.#getBenefit = new checkBenefit(arrayDiscount,this.#present); 
+        }
+        if(arrayDiscount[0] === false){
+            this.#getBenefit = '없음'
+        }
     }
-
+// 이 계산쪽을 다른곳으로 빼는것도 생각
     benefitPrices() {
-
+        const arrayDiscount = Object.values(this.#haveDiscount);
+        let discountPrice = 0;
+        if(arrayDiscount[0] === true){
+            for(let i = 1; i < arrayDiscount.length; i++){
+                discountPrice = discountPrice + arrayDiscount[i];
+            }
+        }
+        this.#totalBenefitPrice = discountPrice;
     }
 
     afterDiscount() {

@@ -48,7 +48,7 @@ class makeDateDiscount{
         dessertMenu.forEach(element => {
             dessertSum = dessertSum + element * NUMBERS.COMMON_DISCOUNT;
         });
-        this.#haveDiscount[weekends] = mainSum;
+        this.#haveDiscount[weekdays] = dessertSum;
 
     }
     
