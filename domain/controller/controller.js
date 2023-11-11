@@ -3,6 +3,8 @@ import InputView from "../view/InputView";
 import checkDate from "../validator/ValidateDate";
 import checkMenu from "../validator/ValidateMenu";
 import makeMenu from "../util/menu/makeMenu";
+import NUMBERS from "../../src/constant/numbers";
+import makeDateDiscount from "../util/date/makeDateDiscount";
 
 
 class controller {
@@ -18,7 +20,8 @@ class controller {
 
 #beforeDiscount
 
-#dDay
+#haveDiscount
+
 
     constructor(){
         this.#menulist = {
@@ -36,8 +39,14 @@ class controller {
             샴페인:0
         };
         this.#menuPriceArray = [6000, 5500, 8000, 55000, 54000, 35000, 25000, 15000, 5000, 3000, 60000, 25000];
+        this.#haveDiscount = {
+            yes: true,
+            weekdays: 0,
+            weekends: 0,
+            special: 0,
+            dday: 0
+        }
         this.#inputView = new InputView();
-        this.#beforeDiscount = this.beforeDiscount();
     }
 
     async start() {
@@ -50,7 +59,7 @@ class controller {
     }
 
     calculator() {
-        
+        this.#haveDiscount = this.discount()
     }
 
 
@@ -79,12 +88,13 @@ class controller {
             Console.print(error)
             await this.getMenu()
         }
+        this.#beforeDiscount = this.beforeDiscount();
     }
 
     beforeDiscount() {
         let sumWithoutDiscount = 0;
         this.#menuPriceArray.forEach((element,index) => {
-            sumWithoutDiscount = sumWithoutDiscount + element * Object.values(this.#menulist)[index];
+            sumWithoutDiscount = sumWithoutDiscount + element * this.#menuCount[index];
         });
         return sumWithoutDiscount;
     }
@@ -97,10 +107,19 @@ class controller {
 //         위 날짜를 제외한 날에는(평일) 디저트 메뉴(#menuList에서 index 7,8) 2023원 할인
             // ㄴ  2023도 숫자 const로 COMMON_DISCOUNT
 // 혜택쪽에서도 문구 추가 삭제
-// beforeDiscount가 10000보다 작으면 discount 없음 혜택 없음 총 혜택 금액 0월 이벤트 배지 없음
+// beforeDiscount가 10000보다 작으면 discount 없음 혜택 없음 총 혜택 금액 0원 이벤트 배지 없음
 
     discount() {
-
+        if(this.#beforeDiscount < 10000){
+            this.#haveDiscount[yes] = false;
+        }
+        let getDiscount = new makeDateDiscount(this.#date,this.#haveDiscount, this.#menuCount)
+        if(this.#date <= NUMBERS.CHRISTMAS_DATE){
+            this.#haveDiscount = getDiscount.onDDayDiscount()
+        }
+        if(this.#date > NUMBERS.CHRISTMAS_DATE){
+            this.#haveDiscount =  getDiscount.commonDiscount()
+        }
     }
 
     present() {
