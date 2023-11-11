@@ -1,4 +1,4 @@
-import Console from "@woowacourse/mission-utils/src/console";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import ERROR from "../../src/constant/error";
 
 class checkDate{
@@ -11,10 +11,10 @@ class checkDate{
     isCorrectDate() {
         const dateInRange =  /^[1-9]\d*$/;
         if(!dateInRange.test(this.#date)) {
-            throw new Error(Console.print(ERROR.NUMBER));
+            throw new Error(MissionUtils.Console.print(ERROR.NUMBER));
         }
         if(this.#date < 1 || this.#date >31){
-            throw new Error(Console.print(ERROR.RANGE));
+            throw new Error(MissionUtils.Console.print(ERROR.RANGE));
         }
     }
 }

@@ -1,4 +1,4 @@
-import Console from "@woowacourse/mission-utils/src/console";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import ERROR from "../../../src/constant/error";
 import NUMBERS from "../../../src/constant/numbers";
 
@@ -53,7 +53,7 @@ class makeMenu{
         const setMenu = new Set(inputMenuArray);
         const setMenuArray = Array.from(setMenu)
         if(inputMenuArray.length != setMenuArray.length){
-            throw new Error(Console.print(ERROR.MENU))
+            throw new Error(MissionUtils.Console.print(ERROR.MENU))
         }
     }
 }

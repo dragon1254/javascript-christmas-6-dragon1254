@@ -1,4 +1,4 @@
-import Console from "@woowacourse/mission-utils/src/console";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import InputView from "../view/InputView";
 import checkDate from "../validator/ValidateDate";
 import checkMenu from "../validator/ValidateMenu";
@@ -84,7 +84,7 @@ class controller {
             this.#date = await this.#inputView.readDate();
             const correctDate = new checkDate(this.#date);
         } catch(error) {
-            Console.print(error);
+            MissionUtils.Console.print(error);
             await this.getDate();
         }
     }
@@ -99,7 +99,7 @@ class controller {
             this.#menuCount = Object.values(this.#menulist);
             const correctMenu = new checkMenu(menu, this.#menulist);
         } catch(error) {
-            Console.print(error)
+            MissionUtils.Console.print(error)
             await this.getMenu()
         }
         this.#beforeDiscount = this.beforeDiscount();

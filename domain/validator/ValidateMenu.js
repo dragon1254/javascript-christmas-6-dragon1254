@@ -1,4 +1,4 @@
-import Console from "@woowacourse/mission-utils/src/console";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import ERROR from "../../src/constant/error";
 import NUMBERS from "../../src/constant/numbers";
 
@@ -18,16 +18,16 @@ class checkMenu{
         const menuCount = Object.values(this.#menuList);
         let sum = 0;
         if(checkFood.every(num => num ===0)){
-            throw new Error(Console.print(ERROR.MENU));
+            throw new Error(MissionUtils.Console.print(ERROR.MENU));
         }
         if(menuCount.some(num => num < 1)) {
-            throw new Error(Console.print(ERROR.MENU));
+            throw new Error(MissionUtils.Console.print(ERROR.MENU));
         }
         menuCount.forEach(element => {
             sum = sum + element
         });
         if(sum > NUMBERS.MAX_MENU) {
-            throw new Error(Console.print(ERROR.OVER_TWENTY))
+            throw new Error(MissionUtils.Console.print(ERROR.OVER_TWENTY))
         }
 
 
