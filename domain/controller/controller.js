@@ -69,6 +69,7 @@ class controller {
     // }
 
     calculator() {
+        this.beforeDiscount();
         this.#haveDiscount = this.discount()
         this.#present = this.present();
         this.getBenefits();
@@ -79,8 +80,8 @@ class controller {
     // 날짜를 받아와서 체크하고 에러가 뜨면 다시 받는다
     // ㄴ 체크 할때 문자인지 확인, 1~31 범위안인지 확인
     async getDate() {
-        let temporaryDate = await InputView.readDate();
         try{
+            const temporaryDate = await InputView.readDate();
             console.log(0);
             this.#date = new checkDate(temporaryDate);
             console.log(1);
@@ -89,25 +90,27 @@ class controller {
             MissionUtils.Console.print(error);
             await this.getDate();
         }
+        console.log(3);
+        await this.getMenu()
     }
     // 메뉴를 받아와서 체크하고 에러가 뜨면 다시 받는다
     // 메뉴 받아와서 메뉴 리스트 만들고
     // 그 리스트를 체크쪽에 보내서 체크
 
     async getMenu() {
-        let menu = await InputView.readMenu();
         try{
-            console.log(3);
+            let menu = await InputView.readMenu();
+            console.log(4);
             this.#menulist = new makeMenu(menu,this.#menulist);
             this.#menuCount = Object.values(this.#menulist);
             const correctMenu = new checkMenu(menu, this.#menulist);
-            console.log(4);
-        } catch(error) {
             console.log(5);
+        } catch(error) {
+            console.log(6);
             MissionUtils.Console.print(error)
             await this.getMenu()
         }
-        this.#beforeDiscount = this.beforeDiscount();
+        console.log(7);
     }
 
     beforeDiscount() {
@@ -115,7 +118,7 @@ class controller {
         this.#menuPriceArray.forEach((element,index) => {
             sumWithoutDiscount = sumWithoutDiscount + element * this.#menuCount[index];
         });
-        return sumWithoutDiscount;
+        this.#beforeDiscount = sumWithoutDiscount;
     }
 
 // 할인은 따로 빼서 #date가 25이하이면 크리스마스디데이를 true로 26이상이면 false로 만듦
