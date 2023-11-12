@@ -77,8 +77,14 @@ const OutputView = {
             MissionUtils.Console.print(`-${sumDiscount.toString()
                 .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원`)};
     },
-    printBadge(totalDiscountPrice){
-        const getBadge = new checkBadge(totalDiscountPrice);
+
+    printAfterBenefit(calculatePrice){
+        MissionUtils.Console.print('<할인 후 예상 결제 금액>')
+        MissionUtils.Console.print(`-${calculatePrice.toString()
+            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원`)
+    },
+    printBadge(totalDiscountPrice,present){
+        const getBadge = new checkBadge(totalDiscountPrice,present);
         MissionUtils.Console.print('<12월 이벤트 배지>')
         MissionUtils.Console.print(getBadge);
     }

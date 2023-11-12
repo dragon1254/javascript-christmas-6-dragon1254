@@ -19,8 +19,6 @@ class controller {
 
 #menuPriceArray
 
-#inputView
-
 #beforeDiscount
 
 #haveDiscount
@@ -31,7 +29,6 @@ class controller {
 
 #totalDiscountPrice
 
-#printAll
 
     constructor(){
         this.#menulist = {
@@ -56,17 +53,20 @@ class controller {
             '주말 할인': 0,
             '특별 할인': 0
         }
+        // this.#inputView = InputView
+        // const { InputView } = require('../view/InputView');
     }
 
     async start() {
-        await this.getDateAndMenu();
+        await this.getDate();
         this.calculator();
+        this.printAll();
     }
 
-    async getDateAndMenu() {
-        await this.getDate();
-        await this.getMenu();
-    }
+    // async getDateAndMenu() {
+    //     await this.getDate();
+    //     await this.getMenu();
+    // }
 
     calculator() {
         this.#haveDiscount = this.discount()
@@ -79,11 +79,13 @@ class controller {
     // 날짜를 받아와서 체크하고 에러가 뜨면 다시 받는다
     // ㄴ 체크 할때 문자인지 확인, 1~31 범위안인지 확인
     async getDate() {
-        this.#inputView = new InputView()
+        let temporaryDate = await InputView.readDate();
         try{
-            this.#date = await this.#inputView.readDate();
-            const correctDate = new checkDate(this.#date);
+            console.log(0);
+            this.#date = new checkDate(temporaryDate);
+            console.log(1);
         } catch(error) {
+            console.log(2);
             MissionUtils.Console.print(error);
             await this.getDate();
         }
@@ -93,13 +95,15 @@ class controller {
     // 그 리스트를 체크쪽에 보내서 체크
 
     async getMenu() {
-        this.#inputView = new InputView()
+        let menu = await InputView.readMenu();
         try{
-            const menu = await this.#inputView.readMenu();
+            console.log(3);
             this.#menulist = new makeMenu(menu,this.#menulist);
             this.#menuCount = Object.values(this.#menulist);
             const correctMenu = new checkMenu(menu, this.#menulist);
+            console.log(4);
         } catch(error) {
+            console.log(5);
             MissionUtils.Console.print(error)
             await this.getMenu()
         }
@@ -177,28 +181,30 @@ class controller {
     // #present가 true일때는 샴페인 받으니 무조건 산타. 
     // #present가 false일때 #totalDiscountPrice3가 20000 넘으면 산타, 10000~20000이면 트리, 5000~10000 이면 별, 0~5000이면 없음
     // if문 2개 써서 #present 하고 false일 때는 따로 클래스(든 메소드든) 빼줌(depth관리)
+    // model쪽에 따로 만들어서 연결시켜줌
 
-    badge() {
-        if(this.#present === true){
-            return '산타';
-        }
-        if(this.#present === false){
-            const badgeLevel = new checkBadge(this.#totalDiscountPrice);
-        }
-    }
+    // badge() {
+    //     if(this.#present === true){
+    //         return '산타';
+    //     }
+    //     if(this.#present === false){
+    //         const badgeLevel = new checkBadge(this.#totalDiscountPrice);
+    //     }
+    // }
 
     printAll() {
-        const print = new OutputView();
-        const printMenu = print.printMenu(this.#menulist);
-        const printBefore = print.printBefore(this.#beforeDiscount);
+        const printMenu = OutputView.printMenu(this.#menulist);
+        const printBefore = OutputView.printBefore(this.#beforeDiscount);
         if(this.#haveDiscount[yes] === true){
-            const printBenefit = print.printYesBenefit(this.#present, this.#haveDiscount);
-            const totalBenefit = print.printTotalBenefit();
+            const printBenefit = OutputView.printYesBenefit(this.#present, this.#haveDiscount);
+            const totalBenefit = OutputView.printTotalBenefit();
         }
         if(this.#haveDiscount[yes] === false){
-            const printNotBenefit = print.printNoBenefit();
+            const printNotBenefit = OutputView.printNoBenefit();
         }
-        const getBadge = print.printBadge(this.#totalDiscountPrice);
+        const calculatePrice = this.afterDiscount();
+        const printAfterDiscount = OutputView.printAfterBenefit();
+        const getBadge = OutputView.printBadge(this.#totalDiscountPrice,this.#present);
     }
 }
 

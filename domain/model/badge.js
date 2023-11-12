@@ -1,12 +1,15 @@
 class checkBadge{
 #totalDiscountPrice
+#present
 
-    constructor(totalDiscountPrice){
-        this.#totalDiscountPrice = totalDiscountPrice
+    constructor(totalDiscountPrice,present){
+        this.#totalDiscountPrice = totalDiscountPrice;
+        this.#present = present;
         this.level();
     }
 
     level(){
+        if(this.#present === true){return '산타'};
         if(this.#totalDiscountPrice >= 20000){
             return '산타'
         }

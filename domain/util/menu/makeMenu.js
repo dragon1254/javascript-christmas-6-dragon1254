@@ -22,7 +22,7 @@ class makeMenu{
     // 그 key값에 해당하는 menuList의 value값에 temproraryMenuList[1]을 넣는식
     // }
     list(){
-        const inputMenuArray = this.#menu.split(',');
+        let inputMenuArray = (this.#menu||'').split(',');
         this.#inputMenuTitle = Object.keys(this.#menuList);
         inputMenuArray.forEach(element => {
             let temproraryMenuList = element.split('-');
@@ -45,7 +45,7 @@ class makeMenu{
     // 이 두 부분은 ValidateMenu 부분이니까 옮길 수 없을 까 확인해야 함
     formOfMenu(temproraryMenuList){
         if(!Object.keys(this.#menuList).includes(temproraryMenuList[0])){
-            throw new Error(ERROR.MENU);
+            throw new Error(MissionUtils.Console.print(ERROR.MENU));
         }
     }
 
