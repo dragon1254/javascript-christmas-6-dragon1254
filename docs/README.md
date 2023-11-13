@@ -117,3 +117,4 @@
 
 #### 11.13 콘솔로그 찍어보니 기본적인 문제 발생 확인
 - new class{}하면 class{key : value}로 return된다는 것을 모르고 있었음. 단순히 value만 return될 것이라 생각했기에 import된 class에서 value 받아오는 과정 추가 하여 전체 갈아엎기
+- 필드에 # 붙이는 것의 의미를 크게 생각하지 않음. default는 import,export되지 않는다는 것 확인하고 변경중
