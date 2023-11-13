@@ -3,26 +3,26 @@ import NUMBERS from "../../../src/constant/numbers";
 class makeDateDiscount{
 #date
 
-#haveDiscount
+HaveDiscount
 
 #menuCount
 
     constructor(date,haveDiscount,menuCount) {
         this.#date = date;
-        this.#haveDiscount = haveDiscount;
+        this.HaveDiscount = haveDiscount;
         this.#menuCount = menuCount;
     }
 
     onDDayDiscount(){
         let discount = this.#date * NUMBERS.DAILY_DISCOUNT + NUMBERS.BASIC_DISCOUNT;
-        this.#haveDiscount['크리스마스 디데이 할인'] = discount
+        this.HaveDiscount['크리스마스 디데이 할인'] = discount
         this.commonDiscount()
-        return this.#haveDiscount
+        return this.HaveDiscount
     }
 
     commonDiscount(){
         if(this.#date === 3 || 10 || 17 || 24 || 25 || 31){
-            this.#haveDiscount['특별 할인'] = 1000;
+            this.HaveDiscount['특별 할인'] = 1000;
         }
         if(this.#date === 1 || 2 || 8 || 9 || 15 || 16 || 22 || 23 || 29 || 30){
             this.weekendDiscount();
@@ -30,7 +30,7 @@ class makeDateDiscount{
         if(this.#date === 3 || 4 || 5 || 6 || 7 || 10 || 11 || 12 || 13 || 14 || 17 || 18 || 19 || 20 || 21 || 24 || 25 || 26 || 27 || 28 || 31){
             this.weekdaysDiscount();
         }
-        return this.#haveDiscount
+        return this.HaveDiscount
     }
     
     weekendDiscount(){
@@ -39,7 +39,7 @@ class makeDateDiscount{
         mainMenu.forEach(element => {
             mainSum = mainSum + element * NUMBERS.COMMON_DISCOUNT;
         });
-        this.#haveDiscount['주말 할인'] = mainSum;
+        this.HaveDiscount['주말 할인'] = mainSum;
     }
 
     weekdaysDiscount(){
@@ -48,11 +48,8 @@ class makeDateDiscount{
         dessertMenu.forEach(element => {
             dessertSum = dessertSum + element * NUMBERS.COMMON_DISCOUNT;
         });
-        this.#haveDiscount['평일 할인'] = dessertSum;
-
+        this.HaveDiscount['평일 할인'] = dessertSum;
     }
-    
-
 }
 
 export default makeDateDiscount;

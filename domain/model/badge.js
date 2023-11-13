@@ -1,6 +1,7 @@
 class checkBadge{
 #totalDiscountPrice
 #present
+badge
 
     constructor(totalDiscountPrice,present){
         this.#totalDiscountPrice = totalDiscountPrice;
@@ -9,19 +10,21 @@ class checkBadge{
     }
 
     level(){
-        if(this.#present === true){return '산타'};
+        if(this.#present === true){
+            this.badge = '산타'
+            return this.badge};
         if(this.#totalDiscountPrice >= 20000){
-            return '산타'
-        }
+            this.badge = '산타'
+            return this.badge};
         if(this.#totalDiscountPrice < 20000 && this.#totalDiscountPrice >= 10000){
-            return '트리'
-        }
+            this.badge = '트리'
+            return this.badge};
         if(this.#totalDiscountPrice <10000 && this.#totalDiscountPrice >= 5000){
-            return '별'
-        }
+            this.badge = '별'
+            return this.badge};
         if(this.#totalDiscountPrice < 5000){
-            return '없음'
-        }
+            this.badge = '없음'
+            return this.badge};
     }
 }
 

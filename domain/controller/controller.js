@@ -80,17 +80,17 @@ totalDiscountPrice
     // 날짜를 받아와서 체크하고 에러가 뜨면 다시 받는다
     // ㄴ 체크 할때 문자인지 확인, 1~31 범위안인지 확인
     async getDate() {
-        // try{
+        try{
             const temporaryDate = await InputView.readDate();
             console.log(temporaryDate);
             const dateObject = new checkDate(temporaryDate);
             this.date = Object.values(dateObject)[0]
             console.log(this.date);
-        // } catch(error) {
+        } catch(error) {
         //     console.log(2);
-        //     MissionUtils.Console.print(error.message);
+            MissionUtils.Console.print(error.message);
         //     await this.getDate();
-        // }
+        }
         // console.log(this.date);
         // await this.getMenu()
     }
@@ -99,7 +99,7 @@ totalDiscountPrice
     // 그 리스트를 체크쪽에 보내서 체크
 
     async getMenu() {
-        // try{
+        try{
             let menu = await InputView.readMenu();
             console.log(menu);
             const menuListObject = new makeMenu(menu,this.menulist);
@@ -109,11 +109,11 @@ totalDiscountPrice
             console.log(this.menuCount);
             const correctMenu = new checkMenu(menu, this.menulist);
     
-        // } catch(error) {
+        } catch(error) {
         //     console.log(6);
-        //     MissionUtils.Console.print(error)
-        //     await this.getMenu()
-        // }
+            MissionUtils.Console.print(error)
+            // await this.getMenu()
+        }
         // console.log(7);
     }
 
@@ -163,6 +163,7 @@ totalDiscountPrice
         if(this.date > NUMBERS.CHRISTMAS_DATE){
             this.haveDiscount =  getDiscount.commonDiscount()
         }
+        console.log(this.haveDiscount);
     }
 
     present() {
@@ -218,16 +219,16 @@ totalDiscountPrice
 
     printAll() {
         const printMenu = OutputView.printMenu(this.menulist);
-        const printBefore = OutputView.printBefore(this.BeforeDiscount);
-        if(this.haveDiscount[yes] === true){
+        const printBefore = OutputView.printBeforeDiscount(this.BeforeDiscount);
+        if(this.haveDiscount['yes'] === true){
             const printBenefit = OutputView.printYesBenefit(this.Present, this.haveDiscount);
-            const totalBenefit = OutputView.printTotalBenefit();
+            // const totalBenefit = OutputView.printTotalBenefit(this.Present, this.haveDiscount);
         }
-        if(this.haveDiscount[yes] === false){
+        if(this.haveDiscount['yes'] === false){
             const printNotBenefit = OutputView.printNoBenefit();
         }
         const calculatePrice = this.afterDiscount();
-        const printAfterDiscount = OutputView.printAfterBenefit();
+        const printAfterDiscount = OutputView.printAfterBenefit(calculatePrice);
         const getBadge = OutputView.printBadge(this.totalDiscountPrice,this.Present);
     }
 }

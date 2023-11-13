@@ -16,6 +16,7 @@ date
         if(this.date < 1 || this.date >31){
             throw new Error(MissionUtils.Console.print(ERROR.RANGE));
         }
+        return;
     }
 }
 

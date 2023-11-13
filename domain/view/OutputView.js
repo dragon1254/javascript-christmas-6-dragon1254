@@ -27,39 +27,31 @@ const OutputView = {
         let countDiscount = Object.values(haveDiscount);
         if(present === true){
             MissionUtils.Console.print(
-                `<증정 메뉴>
-                샴페인 1개`)
+                `<증정 메뉴>\n샴페인 1개`)
             this.printBenefit(titleDiscount, countDiscount);
             MissionUtils.Console.print('증정 이벤트: -25,000원')};
         if(present === false) {
             MissionUtils.Console.print(
-                `<증정 메뉴>
-                없음`)
+                `<증정 메뉴>\n없음`)
             this.printBenefit(titleDiscount, countDiscount)};
         this.printTotalBenefit(present,countDiscount);
     },
 
     printBenefit(titleDiscount, countDiscount){
-        let benefitText =''
+        // let benefitText =''
         MissionUtils.Console.print('<혜택 내역>');
         for(let i = 1; i<titleDiscount.length; i++){
             if(countDiscount !== 0){
-            benefitText = benefitText + `${titleDiscount[i]}: -${countDiscount[i].toString()
-                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원\n`
+            MissionUtils.Console.print(`${titleDiscount[i]}: -${countDiscount[i].toString()
+                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원\n`);
             }
         }
     },
 
     printNoBenefit(){
-        MissionUtils.Console.print(
-        `<증정 메뉴>
-        없음
-         
-        <혜택 내역>
-        없음
-         
-        <총혜택 금액>
-        0원`)
+        MissionUtils.Console.print(`<증정 메뉴>\n없음\n`);
+        MissionUtils.Console.print(`<혜택 내역>\n없음\n`);
+        MissionUtils.Console.print(`<총혜택 금액>\n0원`);
     },
 
     printTotalBenefit(present,countDiscount){
@@ -80,12 +72,13 @@ const OutputView = {
 
     printAfterBenefit(calculatePrice){
         MissionUtils.Console.print('<할인 후 예상 결제 금액>')
-        MissionUtils.Console.print(`-${calculatePrice.toString()
+        MissionUtils.Console.print(`${calculatePrice.toString()
             .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원`)
     },
     printBadge(totalDiscountPrice,present){
-        const getBadge = new checkBadge(totalDiscountPrice,present);
+        const getBadgeObject = new checkBadge(totalDiscountPrice,present);
         MissionUtils.Console.print('<12월 이벤트 배지>')
+        const getBadge = Object.values(getBadgeObject)[0]
         MissionUtils.Console.print(getBadge);
     }
 }
