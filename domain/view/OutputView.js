@@ -3,7 +3,7 @@ import NUMBERS from "../../src/constant/numbers";
 import checkBadge from "../model/badge";
 
 const OutputView = {
-    printMenu(menulist) {
+    printMenu(date, menulist) {
         let makeMenuList = Object.keys(menulist);
         let makeMenuCount = Object.values(menulist);
         let makeMenu = '';
@@ -12,6 +12,7 @@ const OutputView = {
                 makeMenu = makeMenu + `${element} ${makeMenuCount[index]}개\n`
             }
         });
+        MissionUtils.Console.print(`12월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n`)
         MissionUtils.Console.print("<주문 메뉴>");
         MissionUtils.Console.print(makeMenu)
     },

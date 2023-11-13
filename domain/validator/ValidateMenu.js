@@ -15,7 +15,7 @@ class checkMenu{
         const checkFood = Object.values(this.#menuList).slice(0,9);
         const menuCount = Object.values(this.#menuList);
         let sum = 0;
-        if(checkFood.every((num, index, checkFood) => num ===0)){
+        if(checkFood.every(num => num ===0)){
             throw new Error(MissionUtils.Console.print(ERROR.MENU));
         }
         if(menuCount.some(num => num < 1 && num !==0)) {

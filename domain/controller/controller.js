@@ -91,8 +91,25 @@ totalDiscountPrice
             MissionUtils.Console.print(error)
             await this.getMenu()
         }
+        // MissionUtils.Console.print(`12월 ${this.date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n`)
     }
-
+    // async getDateAndMenu(){
+    //     try{
+    //         const temporaryDate = await InputView.readDate();
+    //         const menu = await InputView.readMenu();
+            
+    //         const dateObject = new checkDate(temporaryDate);
+    //         this.date = Object.values(dateObject)[0]
+       
+    //         const menuListObject = new makeMenu(menu,this.menulist);
+    //         this.menulist = Object.values(menuListObject)[0];
+    //         this.menuCount = Object.values(this.menulist);
+    //         const correctMenu = new checkMenu(this.menulist);    
+    //     } catch(error) {
+    //         MissionUtils.Console.print(error)
+    //         await this.getDateAndMenu();
+    //     }
+    // }
 
     // async getMenu() {
     //     let isValidMenu = false;
@@ -157,11 +174,10 @@ totalDiscountPrice
     }
 
     printAll() {
-        const printMenu = OutputView.printMenu(this.menulist);
+        const printMenu = OutputView.printMenu(this.date, this.menulist);
         const printBefore = OutputView.printBeforeDiscount(this.BeforeDiscount);
         if(this.haveDiscount['yes'] === true){
             const printBenefit = OutputView.printYesBenefit(this.Present, this.haveDiscount);
-            // const totalBenefit = OutputView.printTotalBenefit(this.Present, this.haveDiscount);
         }
         if(this.haveDiscount['yes'] === false){
             const printNotBenefit = OutputView.printNoBenefit();
