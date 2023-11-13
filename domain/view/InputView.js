@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import MESSAGE from "../../src/constant/message";
+import MESSAGE from "../../src/constant/message.js";
 
 const InputView = {
     async readDate() {

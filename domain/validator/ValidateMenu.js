@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import ERROR from "../../src/constant/error";
-import NUMBERS from "../../src/constant/numbers";
+import ERROR from "../../src/constant/error.js";
+import NUMBERS from "../../src/constant/numbers.js";
 
 class checkMenu{
 #menuList

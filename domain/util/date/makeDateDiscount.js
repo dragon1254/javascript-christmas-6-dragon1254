@@ -1,4 +1,4 @@
-import NUMBERS from "../../../src/constant/numbers";
+import NUMBERS from "../../../src/constant/numbers.js";
 
 class makeDateDiscount{
 #date

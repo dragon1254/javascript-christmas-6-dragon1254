@@ -1,4 +1,4 @@
-import controller from "../domain/controller/controller";
+import controller from "../domain/controller/controller.js";
 
 class App {
 #controller

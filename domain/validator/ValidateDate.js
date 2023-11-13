@@ -1,5 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import ERROR from "../../src/constant/error";
+import ERROR from "../../src/constant/error.js";
 
 class checkDate{
 date

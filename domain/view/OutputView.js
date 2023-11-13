@@ -1,6 +1,6 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import NUMBERS from "../../src/constant/numbers";
-import checkBadge from "../model/badge";
+import NUMBERS from "../../src/constant/numbers.js";
+import checkBadge from "../model/badge.js";
 
 const OutputView = {
     printMenu(date, menulist) {
