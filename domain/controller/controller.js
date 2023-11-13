@@ -102,7 +102,8 @@ class controller {
         // try{
             let menu = await InputView.readMenu();
             console.log(menu);
-            this.#menulist = new makeMenu(menu,this.#menulist);
+            const menuListObject = new makeMenu(menu,this.#menulist);
+            this.#menulist = Object.values(menuListObject)[0];
             console.log(this.#menulist);
             this.#menuCount = Object.values(this.#menulist);
             console.log(this.#menuCount);

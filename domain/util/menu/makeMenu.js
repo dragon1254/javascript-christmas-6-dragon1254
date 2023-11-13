@@ -5,13 +5,13 @@ import NUMBERS from "../../../src/constant/numbers";
 class makeMenu{
 #menu
 
-#menuList
+MenuList
 
 #inputMenuTitle = [];
 
     constructor(menu,menuList){
         this.#menu = menu;
-        this.#menuList = menuList;
+        this.MenuList = menuList;
         this.list();
     }
 
@@ -23,20 +23,20 @@ class makeMenu{
     // }
     list(){
         let inputMenuArray = (this.#menu||'').split(',');
-        this.#inputMenuTitle = Object.keys(this.#menuList);
+        this.#inputMenuTitle = Object.keys(this.MenuList);
         inputMenuArray.forEach(element => {
             let temproraryMenuList = element.split('-');
             this.equalWithMenuList(temproraryMenuList);
             this.formOfMenu(temproraryMenuList);
         });
         this.duplication(inputMenuArray);
-        return this.#menuList
+        return this.MenuList
     }
 
     equalWithMenuList(temproraryMenuList) {
         for(let i =0; i< NUMBERS.ALL_MENU; i++){
             if(temproraryMenuList[0] === this.#inputMenuTitle[i]) {
-                this.#menuList[this.#inputMenuTitle[i]] = Number(temproraryMenuList[1]);
+                this.MenuList[this.#inputMenuTitle[i]] = Number(temproraryMenuList[1]);
             }
         }
     }
@@ -44,7 +44,7 @@ class makeMenu{
 
     // 이 두 부분은 ValidateMenu 부분이니까 옮길 수 없을 까 확인해야 함
     formOfMenu(temproraryMenuList){
-        if(!Object.keys(this.#menuList).includes(temproraryMenuList[0])){
+        if(!Object.keys(this.MenuList).includes(temproraryMenuList[0])){
             throw new Error(MissionUtils.Console.print(ERROR.MENU));
         }
     }
