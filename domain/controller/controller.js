@@ -76,7 +76,7 @@ totalDiscountPrice
             this.date = Object.values(dateObject)[0]
         } catch(error) {
             MissionUtils.Console.print(error.message);
-        //     await this.getDate();
+            await this.getDate();
         }
     }
 
@@ -86,10 +86,10 @@ totalDiscountPrice
             const menuListObject = new makeMenu(menu,this.menulist);
             this.menulist = Object.values(menuListObject)[0];
             this.menuCount = Object.values(this.menulist);
-            const correctMenu = new checkMenu(menu, this.menulist);    
+            const correctMenu = new checkMenu(this.menulist);    
         } catch(error) {
             MissionUtils.Console.print(error)
-            // await this.getMenu()
+            await this.getMenu()
         }
     }
 

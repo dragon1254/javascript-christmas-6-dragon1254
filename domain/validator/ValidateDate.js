@@ -9,7 +9,6 @@ date
     }
 
     isCorrectDate() {
-        // const dateInRange =  /^[1-9]\d*$/;
         if(isNaN(this.date)) {
             throw new Error(MissionUtils.Console.print(ERROR.NUMBER));
         }

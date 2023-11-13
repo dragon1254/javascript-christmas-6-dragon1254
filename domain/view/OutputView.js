@@ -38,7 +38,6 @@ const OutputView = {
     },
 
     printBenefit(titleDiscount, countDiscount){
-        // let benefitText =''
         MissionUtils.Console.print('<혜택 내역>');
         for(let i = 1; i<titleDiscount.length; i++){
             if(countDiscount[i] !== 0){

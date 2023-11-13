@@ -42,7 +42,6 @@ MenuList
     }
 
 
-    // 이 두 부분은 ValidateMenu 부분이니까 옮길 수 없을 까 확인해야 함
     formOfMenu(temproraryMenuList){
         if(!Object.keys(this.MenuList).includes(temproraryMenuList[0])){
             throw new Error(MissionUtils.Console.print(ERROR.MENU));
