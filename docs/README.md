@@ -114,3 +114,6 @@
 #### 11.12 기능 완성(했다고 생각한 뒤) 발생한 문제
 - 무한 루프 : console.log 찍어서 루프 확인해 보니 date 받고 오류시 다시 date를 받는게 아니라 menu를 받고 오류시 menu로 가지 않고 그제서야 date로 가고 반복 - 그래서 꼬인듯 - date 받아오고나서 menu 받을 수 있게 date 메서드 속에 menu 넣어봄
 - calculater정리. 받아오는 메소드를 최소화하는 방향으로. 루프는 아직 해결중
+
+#### 11.13 콘솔로그 찍어보니 기본적인 문제 발생 확인
+- new class{}하면 class{key : value}로 return된다는 것을 모르고 있었음. 단순히 value만 return될 것이라 생각했기에 import된 class에서 value 받아오는 과정 추가 하여 전체 갈아엎기

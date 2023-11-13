@@ -58,19 +58,19 @@ class controller {
     }
 
     async start() {
-        await this.getDate();
+        await this.getDateAndMenu();
         this.calculator();
         this.printAll();
     }
 
-    // async getDateAndMenu() {
-    //     await this.getDate();
-    //     await this.getMenu();
-    // }
+    async getDateAndMenu() {
+        await this.getDate();
+        await this.getMenu();
+    }
 
     calculator() {
         this.beforeDiscount();
-        this.#haveDiscount = this.discount()
+        this.discount()
         this.#present = this.present();
         this.getBenefits();
         this.benefitPrices();
@@ -80,38 +80,58 @@ class controller {
     // 날짜를 받아와서 체크하고 에러가 뜨면 다시 받는다
     // ㄴ 체크 할때 문자인지 확인, 1~31 범위안인지 확인
     async getDate() {
-        try{
+        // try{
             const temporaryDate = await InputView.readDate();
-            console.log(0);
-            this.#date = new checkDate(temporaryDate);
-            console.log(1);
-        } catch(error) {
-            console.log(2);
-            MissionUtils.Console.print(error);
-            await this.getDate();
-        }
-        console.log(3);
-        await this.getMenu()
+            console.log(temporaryDate);
+            const dateObject = new checkDate(temporaryDate);
+            this.#date = Object.values(dateObject)[0]
+            console.log(this.#date);
+        // } catch(error) {
+        //     console.log(2);
+        //     MissionUtils.Console.print(error.message);
+        //     await this.getDate();
+        // }
+        // console.log(this.#date);
+        // await this.getMenu()
     }
     // 메뉴를 받아와서 체크하고 에러가 뜨면 다시 받는다
     // 메뉴 받아와서 메뉴 리스트 만들고
     // 그 리스트를 체크쪽에 보내서 체크
 
     async getMenu() {
-        try{
+        // try{
             let menu = await InputView.readMenu();
-            console.log(4);
+            console.log(menu);
             this.#menulist = new makeMenu(menu,this.#menulist);
+            console.log(this.#menulist);
             this.#menuCount = Object.values(this.#menulist);
+            console.log(this.#menuCount);
             const correctMenu = new checkMenu(menu, this.#menulist);
-            console.log(5);
-        } catch(error) {
-            console.log(6);
-            MissionUtils.Console.print(error)
-            await this.getMenu()
-        }
-        console.log(7);
+    
+        // } catch(error) {
+        //     console.log(6);
+        //     MissionUtils.Console.print(error)
+        //     await this.getMenu()
+        // }
+        // console.log(7);
     }
+
+
+    // async getMenu() {
+    //     let isValidMenu = false;
+    
+    //     while (!isValidMenu) {
+    //         try {
+    //             let menu = await InputView.readMenu();
+    //             this.#menulist = new makeMenu(menu, this.#menulist);
+    //             this.#menuCount = Object.values(this.#menulist);
+    //             const correctMenu = new checkMenu(menu, this.#menulist);
+    //             isValidMenu = true; 
+    //         } catch (error) {
+    //             MissionUtils.Console.print(error.message);
+    //         }
+    //     }
+    // }
 
     beforeDiscount() {
         let sumWithoutDiscount = 0;
@@ -133,7 +153,7 @@ class controller {
 
     discount() {
         if(this.#beforeDiscount < 10000){
-            this.#haveDiscount[yes] = false;
+            this.#haveDiscount['yes'] = false;
         }
         let getDiscount = new makeDateDiscount(this.#date,this.#haveDiscount, this.#menuCount)
         if(this.#date <= NUMBERS.CHRISTMAS_DATE){
