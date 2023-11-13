@@ -5,8 +5,6 @@ import checkMenu from "../validator/ValidateMenu";
 import makeMenu from "../util/menu/makeMenu";
 import NUMBERS from "../../src/constant/numbers";
 import makeDateDiscount from "../util/date/makeDateDiscount";
-import checkBenefit from "../util/benefit/textBenefit";
-import checkBadge from "../model/badge";
 import OutputView from "../view/OutputView";
 
 
@@ -24,8 +22,6 @@ BeforeDiscount
 haveDiscount
 
 Present
-
-#getBenefit
 
 totalDiscountPrice
 
@@ -53,8 +49,6 @@ totalDiscountPrice
             '주말 할인': 0,
             '특별 할인': 0
         }
-        // this.#inputView = InputView
-        // const { InputView } = require('../view/InputView');
     }
 
     async start() {
@@ -72,49 +66,31 @@ totalDiscountPrice
         this.beforeDiscount();
         this.discount()
         this.Present = this.present();
-        this.getBenefits();
         this.benefitPrices();
     }
 
-
-    // 날짜를 받아와서 체크하고 에러가 뜨면 다시 받는다
-    // ㄴ 체크 할때 문자인지 확인, 1~31 범위안인지 확인
     async getDate() {
         try{
             const temporaryDate = await InputView.readDate();
-            console.log(temporaryDate);
             const dateObject = new checkDate(temporaryDate);
             this.date = Object.values(dateObject)[0]
-            console.log(this.date);
         } catch(error) {
-        //     console.log(2);
             MissionUtils.Console.print(error.message);
         //     await this.getDate();
         }
-        // console.log(this.date);
-        // await this.getMenu()
     }
-    // 메뉴를 받아와서 체크하고 에러가 뜨면 다시 받는다
-    // 메뉴 받아와서 메뉴 리스트 만들고
-    // 그 리스트를 체크쪽에 보내서 체크
 
     async getMenu() {
         try{
             let menu = await InputView.readMenu();
-            console.log(menu);
             const menuListObject = new makeMenu(menu,this.menulist);
             this.menulist = Object.values(menuListObject)[0];
-            console.log(this.menulist);
             this.menuCount = Object.values(this.menulist);
-            console.log(this.menuCount);
-            const correctMenu = new checkMenu(menu, this.menulist);
-    
+            const correctMenu = new checkMenu(menu, this.menulist);    
         } catch(error) {
-        //     console.log(6);
             MissionUtils.Console.print(error)
             // await this.getMenu()
         }
-        // console.log(7);
     }
 
 
@@ -142,16 +118,6 @@ totalDiscountPrice
         this.BeforeDiscount = sumWithoutDiscount;
     }
 
-// 할인은 따로 빼서 date가 25이하이면 크리스마스디데이를 true로 26이상이면 false로 만듦
-// true이면 혜택에 크리스마스디데이할인 추가, false이면 삭제
-            // 디데이 할인: date * 100 + 1000(100, 1000은 숫자 const로 만들었음- DAILY_DISCOUNT,BASIC_DISCOUNT)
-// 공통은 date가 3,10,17,24,25,31 이면 특별할인으로 1000원 추가
-//         date가 1,2,8,9,15,16,22,23,29,30 에는 메인 메뉴 2023원 할인(menuList에서 index 3,4,5,6)
-//         위 날짜를 제외한 날에는(평일) 디저트 메뉴(menuList에서 index 7,8) 2023원 할인
-            // ㄴ  2023도 숫자 const로 COMMON_DISCOUNT
-// 혜택쪽에서도 문구 추가 삭제
-// BeforeDiscount가 10000보다 작으면 discount 없음 혜택 없음 총 혜택 금액 0원 이벤트 배지 없음
-
     discount() {
         if(this.BeforeDiscount < 10000){
             this.haveDiscount['yes'] = false;
@@ -163,7 +129,6 @@ totalDiscountPrice
         if(this.date > NUMBERS.CHRISTMAS_DATE){
             this.haveDiscount =  getDiscount.commonDiscount()
         }
-        console.log(this.haveDiscount);
     }
 
     present() {
@@ -175,16 +140,6 @@ totalDiscountPrice
         }
     }
 
-    getBenefits() {
-        const arrayDiscount = Object.values(this.haveDiscount);
-        if(arrayDiscount[0] === true){
-            this.#getBenefit = new checkBenefit(arrayDiscount,this.Present); 
-        }
-        if(arrayDiscount[0] === false){
-            this.#getBenefit = '없음'
-        }
-    }
-// 이 계산쪽을 다른곳으로 빼는것도 생각. 진짜 혜택 금액은 this.Present가 true일때 샴페인 25000원 더해준 값
     benefitPrices() {
         const arrayDiscount = Object.values(this.haveDiscount);
         let discountPrice = 0;
@@ -196,26 +151,10 @@ totalDiscountPrice
         this.totalDiscountPrice = discountPrice;
     }
 
-// this.BeforeDiscount - this.totalDiscountPrice 
-// 이것뿐이라 따로 정해줄 필요없을 수 있음. 출력에서 바로 계산만 해줘도 될 수 있으니 고민하기
     afterDiscount() {
         const netPrice = this.BeforeDiscount - this.totalDiscountPrice;
         return netPrice;
     }
-
-    // Present가 true일때는 샴페인 받으니 무조건 산타. 
-    // Present가 false일때 totalDiscountPrice3가 20000 넘으면 산타, 10000~20000이면 트리, 5000~10000 이면 별, 0~5000이면 없음
-    // if문 2개 써서 Present 하고 false일 때는 따로 클래스(든 메소드든) 빼줌(depth관리)
-    // model쪽에 따로 만들어서 연결시켜줌
-
-    // badge() {
-    //     if(this.Present === true){
-    //         return '산타';
-    //     }
-    //     if(this.Present === false){
-    //         const badgeLevel = new checkBadge(this.totalDiscountPrice);
-    //     }
-    // }
 
     printAll() {
         const printMenu = OutputView.printMenu(this.menulist);
