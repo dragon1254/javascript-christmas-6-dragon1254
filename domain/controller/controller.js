@@ -11,27 +11,27 @@ import OutputView from "../view/OutputView";
 
 
 class controller {
-#date
+date
 
-#menulist
+menulist
 
-#menuCount
+menuCount
 
 #menuPriceArray
 
-#beforeDiscount
+BeforeDiscount
 
-#haveDiscount
+haveDiscount
 
-#present
+Present
 
 #getBenefit
 
-#totalDiscountPrice
+totalDiscountPrice
 
 
     constructor(){
-        this.#menulist = {
+        this.menulist = {
             양송이수프: 0, 
             타파스:0, 
             시저샐러드:0, 
@@ -46,7 +46,7 @@ class controller {
             샴페인:0
         };
         this.#menuPriceArray = [6000, 5500, 8000, 55000, 54000, 35000, 25000, 15000, 5000, 3000, 60000, 25000];
-        this.#haveDiscount = {
+        this.haveDiscount = {
             yes: true,
             '크리스마스 디데이 할인': 0,
             '평일 할인': 0,
@@ -71,7 +71,7 @@ class controller {
     calculator() {
         this.beforeDiscount();
         this.discount()
-        this.#present = this.present();
+        this.Present = this.present();
         this.getBenefits();
         this.benefitPrices();
     }
@@ -84,14 +84,14 @@ class controller {
             const temporaryDate = await InputView.readDate();
             console.log(temporaryDate);
             const dateObject = new checkDate(temporaryDate);
-            this.#date = Object.values(dateObject)[0]
-            console.log(this.#date);
+            this.date = Object.values(dateObject)[0]
+            console.log(this.date);
         // } catch(error) {
         //     console.log(2);
         //     MissionUtils.Console.print(error.message);
         //     await this.getDate();
         // }
-        // console.log(this.#date);
+        // console.log(this.date);
         // await this.getMenu()
     }
     // 메뉴를 받아와서 체크하고 에러가 뜨면 다시 받는다
@@ -102,12 +102,12 @@ class controller {
         // try{
             let menu = await InputView.readMenu();
             console.log(menu);
-            const menuListObject = new makeMenu(menu,this.#menulist);
-            this.#menulist = Object.values(menuListObject)[0];
-            console.log(this.#menulist);
-            this.#menuCount = Object.values(this.#menulist);
-            console.log(this.#menuCount);
-            const correctMenu = new checkMenu(menu, this.#menulist);
+            const menuListObject = new makeMenu(menu,this.menulist);
+            this.menulist = Object.values(menuListObject)[0];
+            console.log(this.menulist);
+            this.menuCount = Object.values(this.menulist);
+            console.log(this.menuCount);
+            const correctMenu = new checkMenu(menu, this.menulist);
     
         // } catch(error) {
         //     console.log(6);
@@ -124,9 +124,9 @@ class controller {
     //     while (!isValidMenu) {
     //         try {
     //             let menu = await InputView.readMenu();
-    //             this.#menulist = new makeMenu(menu, this.#menulist);
-    //             this.#menuCount = Object.values(this.#menulist);
-    //             const correctMenu = new checkMenu(menu, this.#menulist);
+    //             this.menulist = new makeMenu(menu, this.menulist);
+    //             this.menuCount = Object.values(this.menulist);
+    //             const correctMenu = new checkMenu(menu, this.menulist);
     //             isValidMenu = true; 
     //         } catch (error) {
     //             MissionUtils.Console.print(error.message);
@@ -137,98 +137,98 @@ class controller {
     beforeDiscount() {
         let sumWithoutDiscount = 0;
         this.#menuPriceArray.forEach((element,index) => {
-            sumWithoutDiscount = sumWithoutDiscount + element * this.#menuCount[index];
+            sumWithoutDiscount = sumWithoutDiscount + element * this.menuCount[index];
         });
-        this.#beforeDiscount = sumWithoutDiscount;
+        this.BeforeDiscount = sumWithoutDiscount;
     }
 
-// 할인은 따로 빼서 #date가 25이하이면 크리스마스디데이를 true로 26이상이면 false로 만듦
+// 할인은 따로 빼서 date가 25이하이면 크리스마스디데이를 true로 26이상이면 false로 만듦
 // true이면 혜택에 크리스마스디데이할인 추가, false이면 삭제
-            // 디데이 할인: #date * 100 + 1000(100, 1000은 숫자 const로 만들었음- DAILY_DISCOUNT,BASIC_DISCOUNT)
-// 공통은 #date가 3,10,17,24,25,31 이면 특별할인으로 1000원 추가
-//         #date가 1,2,8,9,15,16,22,23,29,30 에는 메인 메뉴 2023원 할인(#menuList에서 index 3,4,5,6)
-//         위 날짜를 제외한 날에는(평일) 디저트 메뉴(#menuList에서 index 7,8) 2023원 할인
+            // 디데이 할인: date * 100 + 1000(100, 1000은 숫자 const로 만들었음- DAILY_DISCOUNT,BASIC_DISCOUNT)
+// 공통은 date가 3,10,17,24,25,31 이면 특별할인으로 1000원 추가
+//         date가 1,2,8,9,15,16,22,23,29,30 에는 메인 메뉴 2023원 할인(menuList에서 index 3,4,5,6)
+//         위 날짜를 제외한 날에는(평일) 디저트 메뉴(menuList에서 index 7,8) 2023원 할인
             // ㄴ  2023도 숫자 const로 COMMON_DISCOUNT
 // 혜택쪽에서도 문구 추가 삭제
-// beforeDiscount가 10000보다 작으면 discount 없음 혜택 없음 총 혜택 금액 0원 이벤트 배지 없음
+// BeforeDiscount가 10000보다 작으면 discount 없음 혜택 없음 총 혜택 금액 0원 이벤트 배지 없음
 
     discount() {
-        if(this.#beforeDiscount < 10000){
-            this.#haveDiscount['yes'] = false;
+        if(this.BeforeDiscount < 10000){
+            this.haveDiscount['yes'] = false;
         }
-        let getDiscount = new makeDateDiscount(this.#date,this.#haveDiscount, this.#menuCount)
-        if(this.#date <= NUMBERS.CHRISTMAS_DATE){
-            this.#haveDiscount = getDiscount.onDDayDiscount()
+        let getDiscount = new makeDateDiscount(this.date,this.haveDiscount, this.menuCount)
+        if(this.date <= NUMBERS.CHRISTMAS_DATE){
+            this.haveDiscount = getDiscount.onDDayDiscount()
         }
-        if(this.#date > NUMBERS.CHRISTMAS_DATE){
-            this.#haveDiscount =  getDiscount.commonDiscount()
+        if(this.date > NUMBERS.CHRISTMAS_DATE){
+            this.haveDiscount =  getDiscount.commonDiscount()
         }
     }
 
     present() {
-        if(this.#beforeDiscount >= NUMBERS.SHAMPAIN_STANDARD){
+        if(this.BeforeDiscount >= NUMBERS.SHAMPAIN_STANDARD){
             return true;
         }
-        if(this.#haveDiscount < NUMBERS.SHAMPAIN_STANDARD){
+        if(this.haveDiscount < NUMBERS.SHAMPAIN_STANDARD){
             return false;
         }
     }
 
     getBenefits() {
-        const arrayDiscount = Object.values(this.#haveDiscount);
+        const arrayDiscount = Object.values(this.haveDiscount);
         if(arrayDiscount[0] === true){
-            this.#getBenefit = new checkBenefit(arrayDiscount,this.#present); 
+            this.#getBenefit = new checkBenefit(arrayDiscount,this.Present); 
         }
         if(arrayDiscount[0] === false){
             this.#getBenefit = '없음'
         }
     }
-// 이 계산쪽을 다른곳으로 빼는것도 생각. 진짜 혜택 금액은 #this.present가 true일때 샴페인 25000원 더해준 값
+// 이 계산쪽을 다른곳으로 빼는것도 생각. 진짜 혜택 금액은 this.Present가 true일때 샴페인 25000원 더해준 값
     benefitPrices() {
-        const arrayDiscount = Object.values(this.#haveDiscount);
+        const arrayDiscount = Object.values(this.haveDiscount);
         let discountPrice = 0;
         if(arrayDiscount[0] === true){
             for(let i = 1; i < arrayDiscount.length; i++){
                 discountPrice = discountPrice + arrayDiscount[i];
             }
         }
-        this.#totalDiscountPrice = discountPrice;
+        this.totalDiscountPrice = discountPrice;
     }
 
-// this.#beforeDiscount - this.#totalDiscountPrice 
+// this.BeforeDiscount - this.totalDiscountPrice 
 // 이것뿐이라 따로 정해줄 필요없을 수 있음. 출력에서 바로 계산만 해줘도 될 수 있으니 고민하기
     afterDiscount() {
-        const netPrice = this.#beforeDiscount - this.#totalDiscountPrice;
+        const netPrice = this.BeforeDiscount - this.totalDiscountPrice;
         return netPrice;
     }
 
-    // #present가 true일때는 샴페인 받으니 무조건 산타. 
-    // #present가 false일때 #totalDiscountPrice3가 20000 넘으면 산타, 10000~20000이면 트리, 5000~10000 이면 별, 0~5000이면 없음
-    // if문 2개 써서 #present 하고 false일 때는 따로 클래스(든 메소드든) 빼줌(depth관리)
+    // Present가 true일때는 샴페인 받으니 무조건 산타. 
+    // Present가 false일때 totalDiscountPrice3가 20000 넘으면 산타, 10000~20000이면 트리, 5000~10000 이면 별, 0~5000이면 없음
+    // if문 2개 써서 Present 하고 false일 때는 따로 클래스(든 메소드든) 빼줌(depth관리)
     // model쪽에 따로 만들어서 연결시켜줌
 
     // badge() {
-    //     if(this.#present === true){
+    //     if(this.Present === true){
     //         return '산타';
     //     }
-    //     if(this.#present === false){
-    //         const badgeLevel = new checkBadge(this.#totalDiscountPrice);
+    //     if(this.Present === false){
+    //         const badgeLevel = new checkBadge(this.totalDiscountPrice);
     //     }
     // }
 
     printAll() {
-        const printMenu = OutputView.printMenu(this.#menulist);
-        const printBefore = OutputView.printBefore(this.#beforeDiscount);
-        if(this.#haveDiscount[yes] === true){
-            const printBenefit = OutputView.printYesBenefit(this.#present, this.#haveDiscount);
+        const printMenu = OutputView.printMenu(this.menulist);
+        const printBefore = OutputView.printBefore(this.BeforeDiscount);
+        if(this.haveDiscount[yes] === true){
+            const printBenefit = OutputView.printYesBenefit(this.Present, this.haveDiscount);
             const totalBenefit = OutputView.printTotalBenefit();
         }
-        if(this.#haveDiscount[yes] === false){
+        if(this.haveDiscount[yes] === false){
             const printNotBenefit = OutputView.printNoBenefit();
         }
         const calculatePrice = this.afterDiscount();
         const printAfterDiscount = OutputView.printAfterBenefit();
-        const getBadge = OutputView.printBadge(this.#totalDiscountPrice,this.#present);
+        const getBadge = OutputView.printBadge(this.totalDiscountPrice,this.Present);
     }
 }
 
