@@ -21,13 +21,13 @@ HaveDiscount
     }
 
     commonDiscount(){
-        if(this.#date === 3 || 10 || 17 || 24 || 25 || 31){
+        if(NUMBERS.SPECIAL_DATE.includes(this.#date)){
             this.HaveDiscount['특별 할인'] = 1000;
         }
-        if(this.#date === 1 || 2 || 8 || 9 || 15 || 16 || 22 || 23 || 29 || 30){
+        if(NUMBERS.WEEKEND_DATE.includes(this.#date)){
             this.weekendDiscount();
         }
-        if(this.#date === 3 || 4 || 5 || 6 || 7 || 10 || 11 || 12 || 13 || 14 || 17 || 18 || 19 || 20 || 21 || 24 || 25 || 26 || 27 || 28 || 31){
+        if(NUMBERS.WEEKDAY_DATE.includes(this.#date)){
             this.weekdaysDiscount();
         }
         return this.HaveDiscount

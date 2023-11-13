@@ -41,7 +41,7 @@ const OutputView = {
         // let benefitText =''
         MissionUtils.Console.print('<혜택 내역>');
         for(let i = 1; i<titleDiscount.length; i++){
-            if(countDiscount !== 0){
+            if(countDiscount[i] !== 0){
             MissionUtils.Console.print(`${titleDiscount[i]}: -${countDiscount[i].toString()
                 .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원\n`);
             }
