@@ -35,8 +35,9 @@ MenuList
 
     equalWithMenuList(temproraryMenuList) {
         for(let i =0; i< NUMBERS.ALL_MENU; i++){
-            if(temproraryMenuList[0] === this.#inputMenuTitle[i]) {
-                this.MenuList[this.#inputMenuTitle[i]] = Number(temproraryMenuList[1]);
+            let menuNumber = Number(temproraryMenuList[1]);
+            if(temproraryMenuList[0] === this.#inputMenuTitle[i] && !isNaN(menuNumber)) {
+                this.MenuList[this.#inputMenuTitle[i]] = menuNumber;
             }
         }
     }

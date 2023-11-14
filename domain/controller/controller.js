@@ -64,7 +64,7 @@ totalDiscountPrice
     calculator() {
         this.beforeDiscount();
         this.discount()
-        this.Present = this.present();
+        this.present();
         this.benefitPrices();
     }
 
@@ -95,8 +95,6 @@ totalDiscountPrice
 
 
     beforeDiscount() {
-        console.log(this.menulist);
-        console.log(this.menuCount);
         let sumWithoutDiscount = 0;
         this.#menuPriceArray.forEach((element,index) => {
             sumWithoutDiscount = sumWithoutDiscount + element * this.menuCount[index];
@@ -119,10 +117,10 @@ totalDiscountPrice
 
     present() {
         if(this.BeforeDiscount >= NUMBERS.SHAMPAIN_STANDARD){
-            return true;
+            this.Present = true;
         }
-        if(this.haveDiscount < NUMBERS.SHAMPAIN_STANDARD){
-            return false;
+        if(this.BeforeDiscount < NUMBERS.SHAMPAIN_STANDARD){
+            this.Present = false;
         }
     }
 
