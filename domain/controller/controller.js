@@ -103,7 +103,7 @@ totalDiscountPrice
     }
 
     discount() {
-        if(this.BeforeDiscount < 10000){
+        if(this.BeforeDiscount < NUMBERS.NOT_DISCOUNT){
             this.haveDiscount['yes'] = false;
         }
         let getDiscount = new makeDateDiscount(this.date,this.haveDiscount, this.menuCount)

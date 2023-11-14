@@ -22,7 +22,7 @@ HaveDiscount
 
     commonDiscount(){
         if(NUMBERS.SPECIAL_DATE.includes(this.#date)){
-            this.HaveDiscount['특별 할인'] = 1000;
+            this.HaveDiscount['특별 할인'] = NUMBERS.SPECIAL_DISCOUNT;
         }
         if(NUMBERS.WEEKEND_DATE.includes(this.#date)){
             this.weekendDiscount();

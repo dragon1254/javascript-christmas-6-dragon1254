@@ -1,3 +1,5 @@
+import NUMBERS from "../../src/constant/numbers";
+
 class checkBadge{
 #totalDiscountPrice
 #present
@@ -13,16 +15,16 @@ badge
         if(this.#present === true){
             this.badge = '산타'
             return this.badge};
-        if(this.#totalDiscountPrice >= 20000){
+        if(this.#totalDiscountPrice >= NUMBERS.SANTA){
             this.badge = '산타'
             return this.badge};
-        if(this.#totalDiscountPrice < 20000 && this.#totalDiscountPrice >= 10000){
+        if(this.#totalDiscountPrice < NUMBERS.SANTA && this.#totalDiscountPrice >= NUMBERS.TREE){
             this.badge = '트리'
             return this.badge};
-        if(this.#totalDiscountPrice <10000 && this.#totalDiscountPrice >= 5000){
+        if(this.#totalDiscountPrice < NUMBERS.TREE && this.#totalDiscountPrice >= NUMBERS.STAR){
             this.badge = '별'
             return this.badge};
-        if(this.#totalDiscountPrice < 5000){
+        if(this.#totalDiscountPrice < NUMBERS.STAR){
             this.badge = '없음'
             return this.badge};
     }
