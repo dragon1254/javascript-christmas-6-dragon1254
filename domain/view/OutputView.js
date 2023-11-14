@@ -49,9 +49,12 @@ const OutputView = {
     },
 
     printNoBenefit(){
-        MissionUtils.Console.print(`<증정 메뉴>\n없음\n`);
-        MissionUtils.Console.print(`<혜택 내역>\n없음\n`);
-        MissionUtils.Console.print(`<총혜택 금액>\n0원`);
+        MissionUtils.Console.print('<증정 메뉴>');
+        MissionUtils.Console.print(`없음\n`);
+        MissionUtils.Console.print('<혜택 내역>');
+        MissionUtils.Console.print(`없음\n`);
+        MissionUtils.Console.print('<총혜택 금액>');
+        MissionUtils.Console.print(`없음\n`);
     },
 
     printTotalBenefit(present,countDiscount){

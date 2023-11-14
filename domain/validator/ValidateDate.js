@@ -10,7 +10,7 @@ date
 
     isCorrectDate() {
         if(isNaN(this.date)) {
-            throw new Error(MissionUtils.Console.print(ERROR.NUMBER));
+            throw new Error(MissionUtils.Console.print(ERROR.RANGE));
         }
         if(this.date < 1 || this.date >31){
             throw new Error(MissionUtils.Console.print(ERROR.RANGE));
