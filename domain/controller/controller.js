@@ -15,8 +15,6 @@ menulist
 
 menuCount
 
-#menuPriceArray
-
 BeforeDiscount
 
 haveDiscount
@@ -40,7 +38,6 @@ totalDiscountPrice
             레드와인:0,
             샴페인:0
         };
-        this.#menuPriceArray = [6000, 5500, 8000, 55000, 54000, 35000, 25000, 15000, 5000, 3000, 60000, 25000];
         this.haveDiscount = {
             yes: true,
             '크리스마스 디데이 할인': 0,
@@ -96,7 +93,7 @@ totalDiscountPrice
 
     beforeDiscount() {
         let sumWithoutDiscount = 0;
-        this.#menuPriceArray.forEach((element,index) => {
+        NUMBERS.MENU_PRICE.forEach((element,index) => {
             sumWithoutDiscount = sumWithoutDiscount + element * this.menuCount[index];
         });
         this.BeforeDiscount = sumWithoutDiscount;
